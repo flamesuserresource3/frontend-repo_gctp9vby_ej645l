@@ -1,28 +1,45 @@
-import { useState } from 'react'
+import { useState } from "react";
+import BrandHeader from "./components/BrandHeader";
+import UploadStep from "./components/UploadStep";
+import OptionsPanel from "./components/OptionsPanel";
+import PreviewPane from "./components/PreviewPane";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [file, setFile] = useState(null);
+  const [letterhead, setLetterhead] = useState(null);
+  const [options, setOptions] = useState({
+    language: "ar",
+    font: "Cairo",
+    watermark: "standard",
+    verifiedFooter: true,
+    verifier: "Al Midrar Institute",
+    highDpi: true,
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-[#F8FAFC] text-gray-900">
+      <BrandHeader />
 
-export default App
+      <main className="mx-auto max-w-7xl px-4 py-8 space-y-8">
+        <section className="text-center">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+            Translate with Faithfulness and Form
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Upload your English certificate and receive a layout‑perfect Arabic version. Visual elements remain untouched in their exact positions.
+          </p>
+        </section>
+
+        <UploadStep file={file} setFile={setFile} />
+
+        <OptionsPanel options={options} setOptions={setOptions} setLetterhead={setLetterhead} />
+
+        <PreviewPane file={file} options={options} letterhead={letterhead} />
+
+        <footer className="py-8 text-center text-xs text-gray-500">
+          FlamesBlue Elegant Bureau • Navy-Gold Professional Theme
+        </footer>
+      </main>
+    </div>
+  );
+}
